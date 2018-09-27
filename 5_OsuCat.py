@@ -4,25 +4,35 @@ import PIL.Image as Image
 
 root = tk.Tk()
 root.title('Osu! Bongo Cat')
+root.minsize(825, 200)
 
-test_images = {
-    1: Image.open("img_onKeyDown.gif"),
-    2: Image.open("img_onKeyUp.gif")
+key_images = {
+    1: Image.open("Images/1000.png"),
+    2: Image.open("Images/0100.png"),
+    3: Image.open("Images/0010.png"),
+    4: Image.open("Images/0001.png"),
 }
 
 def on_down(e):
-    if e.char == 'a':
-        base_image = ImageTk.PhotoImage(test_images[2])
-        imageLabel.configure(image=base_image)
-        imageLabel.image = base_image
-        root.update()
+    e.char == k1 and update("show", imageLabel_1000)
+    e.char == k2 and update("show", imageLabel_0100)
+    e.char == k3 and update("show", imageLabel_0010)
+    e.char == k4 and update("show", imageLabel_0001)
 
 def on_up(e):
-    if e.char == 'a':
-        base_image = ImageTk.PhotoImage(test_images[1])
-        imageLabel.configure(image=base_image)
-        imageLabel.image = base_image
-        root.update()
+    e.char == k1 and update("hide", imageLabel_1000)
+    e.char == k2 and update("hide", imageLabel_0100)
+    e.char == k3 and update("hide", imageLabel_0010)
+    e.char == k4 and update("hide", imageLabel_0001)
+
+def update(task, imageLabel):
+    if task == "show":
+        imageToShow = ImageTk.PhotoImage(key_images[1])
+        imageLabel.configure(image=imageToShow)
+        imageLabel.image = imageToShow
+    elif task == "hide":
+        imageLabel.configure(image="")
+    root.update()
 
 while True:
     k1 = input("Key 1 is: ")
@@ -38,11 +48,13 @@ while True:
 root.bind('<KeyPress>', on_down)
 root.bind('<KeyRelease>', on_up)
 
-base_image = ImageTk.PhotoImage(test_images[1])
-
-imageLabel = tk.Label(root, image=base_image)
-imageLabel.image = base_image
-
-imageLabel.pack(side=tk.LEFT)
+imageLabel_1000 = tk.Label(root, image="")
+imageLabel_1000.pack(side=tk.LEFT, fill=None, expand=False)
+imageLabel_0100 = tk.Label(root, image="")
+imageLabel_0100.pack(side=tk.LEFT, fill=None, expand=False)
+imageLabel_0010 = tk.Label(root, image="")
+imageLabel_0010.pack(side=tk.LEFT, fill=None, expand=False)
+imageLabel_0001 = tk.Label(root, image="")
+imageLabel_0001.pack(side=tk.LEFT, fill=None, expand=False)
 
 root.mainloop()
